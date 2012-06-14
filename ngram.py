@@ -5,13 +5,12 @@ import sys,random
 import codecs
 
 sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
-
-line=sys.stdin.readline()
 list = []
+itemlist=[]
 m=MeCab.Tagger("-Owakati")
-wakati =  m.parse(line)
-#print wakati
-itemlist=wakati.split(" ")
+for line in sys.stdin:
+    wakati =  m.parse(line)
+    itemlist+=wakati.split(" ")
 #print itemlist
 itemlist2 = [x.decode('utf-8') for x in itemlist]
 print itemlist2[0]
