@@ -3,6 +3,7 @@
 import MeCab
 import sys,random
 import codecs
+import binarysearch
 
 sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
 list = []
@@ -31,7 +32,8 @@ for i in xrange(len(itemlist2)-1):
         else:
             freq1[x][y]=1
     else:
-        freq1[x][y]=1
-        
+        freq1[x]={y:1}        
 for x in freq1:
-    print "%s : %d" %(x,freq1[x])
+    print "%s : %s" %(x,freq1[x])
+    for y in freq1[x]:
+        print"%s:%d"%(y,freq1[x][y])
