@@ -3,6 +3,7 @@
 import MeCab
 import sys,random
 import codecs
+import binarysearch
 
 sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
 list = []
