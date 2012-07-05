@@ -1,1 +1,0 @@
-haruka@haruka-laptop.2489:1340771158
