@@ -50,4 +50,3 @@ while sentence[i]!=u"。":
     i=i+1
     sentence.append(keyslist[binarysearch.binarysearch(valueslist)])
 print u" ".join(sentence)
-

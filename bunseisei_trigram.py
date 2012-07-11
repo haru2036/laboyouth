@@ -4,7 +4,7 @@ import MeCab
 import sys,random
 import codecs
 import binarysearch
-#ここからbigram生成
+#ここからtrigram生成
 sys.stdout = codecs.getwriter('utf_8')(sys.stdout)
 list = []
 itemlist=[]
@@ -23,31 +23,40 @@ for x in itemlist:
 f.close()
 """
 freq1 = {}
-for i in xrange(len(itemlist2)-1):
+for i in xrange(len(itemlist2)-2):
     x=itemlist2[i]
     y=itemlist2[i+1]
+    z=itemlist2[i+2]
     if x in freq1:
         if y in freq1[x]:
-            freq1[x][y]+=1
+            if z in freq1[x][y]:
+                freq1[x][y][z]+=1
+            else:
+                freq1[x][y][z]=1
         else:
-            freq1[x][y]=1
+            freq1[x][y]={z:1}
     else:
-        freq1[x]={y:1}        
+        freq2 = {}
+        freq2={z:1}
+        freq1[x]={y:freq2}        
 for x in freq1:
     print "%s : %s" %(x,freq1[x])
     for y in freq1[x]:
-        print"%s:%d"%(y,freq1[x][y])
+        print"%s:%s"%(y,freq1[x][y])
+        for z in freq1[x][y]:
+            print"%s:%d"%(z,freq1[x][y][z])
 sentence=[]
-keyslist=freq1[u"ボク"].keys()
-valueslist=freq1[u"ボク"].values()
+"""
+keyslist=freq1[u"start1"].keys()
+valueslist=freq1[u"start2"].values()
 result=binarysearch.binarysearch(valueslist)
-print result,len(keyslist)
-sentence.append(keyslist[result])
+print result,len(keyslist)"""
+sentence.append(u"ボク")
+sentence.append(u"に")
 i=0
 while sentence[i]!=u"。":
-    keyslist=freq1[sentence[i]].keys()
-    valueslist=freq1[sentence[i]].values()
+    keyslist=freq1[sentence[i]][sentence[i+1]].keys()
+    valueslist=freq1[sentence[i]][sentence[i+1]].values()
     i=i+1
     sentence.append(keyslist[binarysearch.binarysearch(valueslist)])
 print u" ".join(sentence)
-
