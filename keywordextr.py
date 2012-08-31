@@ -8,8 +8,9 @@ class keywordext:
 		self.inputsentence=inputsentence
 	def extraction(self):
 		itemlist=[]
+		inputlist=self.inputsentence.split(" ")
 		m=MeCab.Tagger("-Owakati")
-		wakati=m.parse(self.inputsentence)
+		wakati=m.parse(inputlist[1])
 		wakatistrip=wakati.strip()
 		itemlist+=wakatistrip.split(" ")
 		keyword1=itemlist[random.randint(0,len(itemlist)-1)]

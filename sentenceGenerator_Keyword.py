@@ -18,7 +18,12 @@ class sjk:
 		srctxt=[]
 		print u"こんにちは！"
 #keyword="こんにちは"
-		inputsentence=raw_input()
+		replies=self.api.GetReplies()
+		reply_name=replies[0].user.screen_name
+		reply_text=replies[0].text
+		print reply_text
+		inputsentence=reply_text.encode('utf-8')
+		#inputsentence=raw_input()
 		extkey=keywordextr.keywordext(inputsentence)
 		keyword1=extkey.extraction()
 #with open("strarf_serif.txt","rb") as f:
@@ -29,7 +34,12 @@ class sjk:
 		freq1=modelGen.generateModel()
 		sentenceGen=sentenceGenerator.sentenceGenerator(freq1,keyword1)
 		sentence=sentenceGen.generateSentence()
-		s= u" ".join(sentence)
-		print s
-		self.api.PostUpdate(status=s)
+		print sentence
+		if not sentence:
+			print "sentenceがからです！"
+			return
+		s= " ".join(sentence)
+		poststatus="@"+reply_name+" "+s
+		print poststatus
+		self.api.PostUpdate(status=poststatus)
 
