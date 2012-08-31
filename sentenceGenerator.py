@@ -19,7 +19,7 @@ class sentenceGenerator:
 			sentence.append(y)
 			j=0
 #			while (sentence[j]!=(u"。" or u"？"or u"?")) or (j<=10):
-			while j<=10:
+			while j<10:
 				if sentence[j] not in self.freq1:
 					sentence.append("……えっと……途中まで考えてたんだけど忘れちゃった。ごめんね")
 					sentence.append("Error2")
@@ -30,3 +30,10 @@ class sentenceGenerator:
 					x=keyslist1[binarysearch.binarysearch(valueslist)]
 					sentence.append(x)
 			return sentence
+	def bigram (self,keyword):
+		"""2単語目をランダムに選ぶ"""
+		keyslist = self.freq1[keyword].keys()
+		values=self.freq1[keyword].values()
+		y=keyslist[random.randint(0,len(keyslist)-1)]
+		return y
+		pass
