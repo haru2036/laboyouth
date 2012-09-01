@@ -24,5 +24,3 @@ def binarysearch(weights):
     return num1
 
 
-w=[1,5,6,4,8]
-print binarysearch(w)
