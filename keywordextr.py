@@ -1,6 +1,7 @@
 
 
 import MeCab
+import learn
 import random
 
 class keywordext:
@@ -8,6 +9,7 @@ class keywordext:
 		self.inputsentence=inputsentence
 	def extraction(self):
 		itemlist=[]
+		learn.learn(self.inputsentence)
 		inputlist=self.inputsentence.split(" ")
 		m=MeCab.Tagger("-Owakati")
 		wakati=m.parse(inputlist[1])

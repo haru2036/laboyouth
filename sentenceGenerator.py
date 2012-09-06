@@ -12,6 +12,7 @@ class sentenceGenerator:
 		if self.keyword.decode("utf-8") not in self.freq1:
 			sentence.append("えっと……わからないや、ごめんね")
 			sentence.append("Error1")
+			return sentence
 		else:
 			keyslist = self.freq1[sentence[0]].keys()
 			values=self.freq1[sentence[0]].values()
@@ -23,6 +24,8 @@ class sentenceGenerator:
 				if sentence[j] not in self.freq1:
 					sentence.append("……えっと……途中まで考えてたんだけど忘れちゃった。ごめんね")
 					sentence.append("Error2")
+					return sentence
+					j=10
 				else:
 					keyslist1=self.freq1[sentence[j]][sentence[j+1]].keys()
 					valueslist=self.freq1[sentence[j]][sentence[j+1]].values()
