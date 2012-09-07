@@ -33,5 +33,18 @@ class test_sentenceGenerator(unittest.TestCase):
 		self.assertEqual(sentence[7],u"foo")
 		self.assertEqual(sentence[8],u"foo")
 		self.assertEqual(sentence[9],u"foo")
-		print sentence
+	"""単語がモデルに見当たらなかったときのエラー動作の確認（１単語目の時)"""
+	def testNoTango(self):
+		freq1={u"foo":{u"foo":{u"foo":1}}}
+		keyword="あーてすてす"
+		sentenceGen=sentenceGenerator.sentenceGenerator(freq1,keyword)
+		sentence=sentenceGen.generateSentence()
+		self.assertIn("Error1",sentence)
+	"""単語がモデルに見当たらなかったときのエラー動作の確認（２単語目の時）"""
+	def testNoTango2(self):
+		freq1={u"あーてすてす":{u"foo":{u"bar":1}}}
+		keyword="あーてすてす"
+		sentenceGen=sentenceGenerator.sentenceGenerator(freq1,keyword)
+		sentence=sentenceGen.generateSentence()
+		self.assertIn("Error2",sentence)
 unittest.main()
