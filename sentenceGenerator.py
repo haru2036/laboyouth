@@ -10,7 +10,7 @@ class sentenceGenerator:
 		sentence=[]
 		sentence.append(self.keyword.decode("utf-8"))
 		if self.keyword.decode("utf-8") not in self.freq1:
-			sentence.append("えっと……わからないや、ごめんね")
+			sentence.append(u"えっと……わからないや、ごめんね")
 			sentence.append("Error1")
 			return sentence
 		else:
