@@ -8,8 +8,8 @@ class sentenceGenerator:
 		self.keyword=keyword
 	def generateSentence(self):
 		sentence=[]
-		sentence.append(self.keyword.decode("utf-8"))
-		if self.keyword.decode("utf-8") not in self.freq1:
+		sentence.append(self.keyword)
+		if self.keyword not in self.freq1:
 			sentence.append(u"えっと……わからないや、ごめんね")
 			sentence.append("Error1")
 			return sentence

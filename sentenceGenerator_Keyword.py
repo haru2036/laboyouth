@@ -35,7 +35,7 @@ class sjk:
 		reply_text=replies[0].text
 		in_reply_to_id=replies[0].in_reply_to_status_id
 		print reply_text
-		inputsentence=reply_text.encode('utf-8')
+		inputsentence=reply_text
 		print in_reply_to_id
 		if previd["inrepid"]==in_reply_to_id:
 			print u"すでに返信済みのツイートが最新です。"
