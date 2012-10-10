@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 import unittest
-import sjk
-class test_sjk:
-	def __init__(unittest.TestCase):
+import sentenceGenerator_Keyword 
+class test_sjk(unittest.TestCase):
 	def test1(self):
-		self.assertNotEqual(
+		sjk=sentenceGenerator_Keyword.sjk()
+		sjk.main({"inrepid":1234567890})
+unittest.main()
