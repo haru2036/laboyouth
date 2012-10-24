@@ -31,9 +31,10 @@ class sjk:
 			previd["inrepid"]=1234
 			filedata1.fileW(previd)
 		replies=self.api.GetReplies()
+		print replies[0]
 		reply_name=replies[0].user.screen_name
 		reply_text=replies[0].text
-		in_reply_to_id=replies[0].in_reply_to_status_id
+		in_reply_to_id=replies[0].id
 		print reply_text
 		inputsentence=reply_text
 		print in_reply_to_id

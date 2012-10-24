@@ -4,6 +4,7 @@ import binarysearch
 import random
 class sentenceGenerator:
 	def __init__(self,freq1,keyword):
+		#freq1,keywordはunicode
 		self.freq1=freq1
 		self.keyword=keyword
 	def generateSentence(self):
