@@ -1,18 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
-import MeCab
-
+import mecabCaller
 class trigramModelGenerator:
 	def __init__(self,sentence):
 		self.sentence=sentence
 	def generateModel(self):
-		itemlist=[]
-		m=MeCab.Tagger("-Owakati")
-		for line in self.sentence:
-			wakati = m.parse(line)
-			wakatistrip=wakati.strip()
-			itemlist+=wakatistrip.split(" ")
-		itemlist2 = [x.decode('utf-8') for x in itemlist]
+		mc=mecabCaller.mecabCaller([x.decode('utf-8') for x in self.sentence])
+		itemlist2=mc.parse()
 		freq1={}
 		for i in xrange(len(itemlist2)-2):
 			x=itemlist2[i]
@@ -29,4 +23,6 @@ class trigramModelGenerator:
 			else:
 				freq2={z:1}
 				freq1[x]={y:freq2}
+		keyslist=freq1.keys()
+		print type(keyslist[0])
 		return freq1
