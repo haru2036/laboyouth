@@ -14,7 +14,7 @@ class keywordext:
 		itemlist=[]
 		learn.learn(self.inputsentence)
 		m=mecabCaller.mecabCaller(self.inputsentence)
-		itemlist =m.parsekwd() 
+		itemlist =m.parsekwd()
 		itemlist=[x for x in itemlist if x in self.freq]
 		if len(itemlist)==0:
 			return None

@@ -38,15 +38,15 @@ class sjk:
 		print reply_text
 		inputsentence=reply_text
 		print in_reply_to_id
-		inputsentence=inputsentence.split('@')
 		if previd["inrepid"]==in_reply_to_id:
 			print u"すでに返信済みのツイートが最新です。"
 			return
 		previd["inrepid"]=in_reply_to_id
 		#inputsentence=raw_input()
-		with open("strarf_serif.txt","rb") as f:
+		with codecs.open("strarf_serif.txt","rb","utf-8") as f:
 			for line in f:
 				srctxt.append(line)
+		bytesrctxt=" ".join(srctxt)
 		modelGen=trigramModelGenerator.trigramModelGenerator(srctxt)
 		freq1=modelGen.generateModel()
 		extkey=keywordextr.keywordext(inputsentence,freq1)

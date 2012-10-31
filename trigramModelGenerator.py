@@ -5,7 +5,7 @@ class trigramModelGenerator:
 	def __init__(self,sentence):
 		self.sentence=sentence
 	def generateModel(self):
-		mc=mecabCaller.mecabCaller([x.decode('utf-8') for x in self.sentence])
+		mc=mecabCaller.mecabCaller(self.sentence)
 		itemlist2=mc.parse()
 		freq1={}
 		for i in xrange(len(itemlist2)-2):

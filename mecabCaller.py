@@ -18,10 +18,11 @@ class mecabCaller:
 		return itemlist2
 	def parsekwd(self):
 		itemlist=[]
-		bytesentence=self.sentence.encode('utf-8')
-		inputlist=bytesentence.split(" ")
+		bytesentence=self.sentence
+		print bytesentence
+		bytesentence=bytesentence.encode('utf-8')
 		m=MeCab.Tagger("-Owakati")
-		wakati=m.parse(inputlist[0])
+		wakati=m.parse(bytesentence)
 		wakatistrip=wakati.strip()
 		itemlist+=wakatistrip.split(" ")
 		return [x.decode('utf-8') for x in itemlist]
