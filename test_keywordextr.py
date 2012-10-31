@@ -6,8 +6,9 @@ import keywordextr
 
 class test_keywordextr(unittest.TestCase):
 	def testExtraction1(self):
-		inputsentence=u"こんにちは、私は元気です。あなたは元気ですか？"
-		keywordextractor=keywordextr.keywordext(inputsentence)
+		inputsentence=u'aiueo kakikukeko sasisuseso tatituteto'
+		freq1={'hoge':{'piyo':{'hogehoge',1}}}
+		keywordextractor=keywordextr.keywordext(inputsentence,freq1)
 		keyword1=keywordextractor.extraction()
 		print keyword1
 		self.assertIsInstance(keyword1,unicode)

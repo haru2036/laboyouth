@@ -5,6 +5,6 @@ import sys
 def learn(sentence):
 	f=open('learn.txt','a')
 	try:
-		f.write(sentence.encode('utf-8'))
+		f.write("".join(sentence).encode('utf-8'))
 	finally:
 		f.close()
