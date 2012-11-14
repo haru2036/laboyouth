@@ -8,20 +8,15 @@ import sentenceGenerator
 import keywordextr
 import sys
 import learn
-import twitter
 import fileRW
-class sjk:
-	def __init__(self):
-		self.api = twitter.Api(consumer_key = secret.dict['consumer_key'],consumer_secret = secret.dict['consumer_secret'],access_token_key = secret.dict['access_token_key'],access_token_secret = secret.dict['access_token_secret']
-			)
+class glue:
+	def __init__(self,twitterCommunication):
+		self.twitter = twitterCommunication
 	def main(self):
-#文字コード設定
 		filedata1=fileRW.fileRW("previd.json")
-		previd={"inrepid":1234}
-		sys.stdout=codecs.getwriter('utf_8')(sys.stdout)
+		previd = {"inrepid":1234}
+		sys.stdout=codecs.getwriter('utf-8')(sys.stdout)
 		srctxt=[]
-		print u"こんにちは！"
-#keyword="こんにちは"
 		try:
 			previd=filedata1.fileR()
 		except IOError:
@@ -30,7 +25,7 @@ class sjk:
 		except ValueError:
 			previd["inrepid"]=1234
 			filedata1.fileW(previd)
-		replies=self.api.GetReplies()
+		replies = self.twitter.get()
 		print replies[0]
 		reply_name=replies[0].user.screen_name
 		reply_text=replies[0].text
@@ -39,11 +34,9 @@ class sjk:
 		inputsentence=reply_text
 		print in_reply_to_id
 		if previd["inrepid"]==in_reply_to_id:
-			print u"すでに返信済みのツイートが最新です。"
+			print u"すでに最新のツイートに返信しています。"
 			return
 		previd["inrepid"]=in_reply_to_id
-		#inputsentence=raw_input()
-		#本来はファイル名を	strarf_serif.txtにすると普通のちびみかさんになる。
 		with codecs.open("strarf_serif.txt","rb","utf-8") as f:
 			for line in f:
 				srctxt.append(line)
@@ -57,7 +50,7 @@ class sjk:
 		sentence=sentenceGen.generateSentence()
 		print sentence
 		if not sentence:
-			print "sentenceがからです！"
+			print "sentenceが空です。"
 			return
 		if sentence==None:
 			print "sentence[0]がNoneです。"
@@ -65,5 +58,4 @@ class sjk:
 		s= " ".join(sentence)
 		poststatus="@"+reply_name+" "+s
 		print poststatus
-		self.api.PostUpdate(status=poststatus)
-
+		self.twitter.post(poststatus)

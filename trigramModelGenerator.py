@@ -24,5 +24,4 @@ class trigramModelGenerator:
 				freq2={z:1}
 				freq1[x]={y:freq2}
 		keyslist=freq1.keys()
-		print type(keyslist[0])
 		return freq1

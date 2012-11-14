@@ -18,6 +18,7 @@ class keywordext:
 		itemlist=[x for x in itemlist if x in self.freq]
 		if len(itemlist)==0:
 			return None
+		print itemlist
 		keyword1=itemlist[random.randint(0,len(itemlist)-1)]
 		print type(keyword1)
 		return keyword1
