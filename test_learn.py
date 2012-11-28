@@ -4,9 +4,9 @@ import unittest
 import learn
 class test_learn(unittest.TestCase):
 	def testLearn1(self):
-		sentence="テスト"
+		sentence=u"テスト"
 		learn.learn(sentence)
 	def testLearn2(self):
-		sentence="てすと"
+		sentence=u"てすと"
 		learn.learn(sentence)
 unittest.main()

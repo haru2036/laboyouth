@@ -19,7 +19,7 @@ class test_sentenceGenerator(unittest.TestCase):
 		self.assertEqual(bigramResult,u"foo")
 	def testSentenceGenerator(self):
 		freq1={u"テスト":{u"foo":{u"foo":1}},u"foo":{u"foo":{u"foo":1}}}
-		keyword="テスト"
+		keyword=u"テスト"
 		sentenceGen=sentenceGenerator.sentenceGenerator(freq1,keyword)
 		sentence=sentenceGen.generateSentence()
 		self.assertEqual(len(sentence),12)

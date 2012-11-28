@@ -1,9 +1,0 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*
-import MeCab
-import sys,random
-import binarysearch
-
-#此処から関数
-def trigramGenelator(keyword):
-	

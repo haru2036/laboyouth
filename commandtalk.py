@@ -28,5 +28,5 @@ if sentence==None:
 	print "sentence[0]がNoneです。"
 	return
 s=" ".join(sentence)
-	print s
+print s
 
