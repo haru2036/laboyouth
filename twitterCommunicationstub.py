@@ -2,4 +2,4 @@
 # -*- coding: utf-8 -*
 class twitterCommunication:
 	def get:
-		return 
+		
