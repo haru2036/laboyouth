@@ -5,7 +5,7 @@ import json
 import secret
 import trigramModelGenerator
 import sentenceGenerator
-import keywordextr
+import keywordext
 import sys
 import learn
 import fileRW
@@ -43,8 +43,7 @@ class glue:
 		bytesrctxt=" ".join(srctxt)
 		modelGen=trigramModelGenerator.trigramModelGenerator(srctxt)
 		freq1=modelGen.generateModel()
-		extkey=keywordextr.keywordext(inputsentence,freq1)
-		keyword1=extkey.extraction()
+		keyword1=keywordext.extraction(inputsentence,freq1)
 		filedata1.fileW(previd)
 		sentenceGen=sentenceGenerator.sentenceGenerator(freq1,keyword1)
 		sentence=sentenceGen.generateSentence()

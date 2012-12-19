@@ -11,18 +11,21 @@ class mecabCaller:
 		bytesentence = [x.encode('utf-8') for x in self.sentence]
 		m=MeCab.Tagger("-Owakati")
 		for line in bytesentence:
-			wakati = m.parse(line)
+			wakati = m.parse(line).decode('utf-8')
 			wakatistrip=wakati.strip()
 			itemlist+=wakatistrip.split(" ")
-		itemlist2 = [x.decode('utf-8') for x in itemlist]
+		"""itemlist2 = [x.decode('utf-8') for x in itemlist]
 		return itemlist2
-	def parsekwd(self):
+		"""
+		return itemlist
+	def parsekeyword(self):
 		itemlist=[]
 		bytesentence=self.sentence
 		print bytesentence
 		bytesentence=bytesentence.encode('utf-8')
 		m=MeCab.Tagger("-Owakati")
-		wakati=m.parse(bytesentence)
+		wakati=m.parse(bytesentence).decode('utf-8')
 		wakatistrip=wakati.strip()
 		itemlist+=wakatistrip.split(" ")
-		return [x.decode('utf-8') for x in itemlist]
+		#return [x.decode('utf-8') for x in itemlist]
+		return itemlist
