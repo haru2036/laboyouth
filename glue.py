@@ -45,8 +45,8 @@ class glue:
 		freq1=modelGen.generateModel()
 		keyword1=keywordext.extraction(inputsentence,freq1)
 		filedata1.fileW(previd)
-		sentenceGen=sentenceGenerator.sentenceGenerator(freq1,keyword1)
-		sentence=sentenceGen.generateSentence()
+		sentenceGen=sentenceGenerator.sentenceGenerator(freq1)
+		sentence=sentenceGen.generateSentence(keyword1)
 		print sentence
 		if not sentence:
 			print "sentenceが空です。"
