@@ -8,20 +8,20 @@ import sentenceGenerator
 import keywordext
 import sys
 import learn
-import fileRW
+import JsonFile
 class glue:
 	def __init__(self,twitterCommunication):
 		self.twitter = twitterCommunication
 	def main(self):
-		filedata1=fileRW.fileRW("previd.json")
+		filedata1=JsonFile.JsonFile("previd.json")
 		previd = {"inrepid":1234}
 		sys.stdout=codecs.getwriter('utf-8')(sys.stdout)
 		srctxt=[]
 		try:
-			previd=filedata1.fileR()
+			previd=filedata1.Read()
 		except IOError:
 			previd["inrepid"]=1234
-			filedata1.fileW(previd)
+			filedata1.Write(previd)
 		except ValueError:
 			previd["inrepid"]=1234
 			filedata1.fileW(previd)
@@ -41,10 +41,9 @@ class glue:
 			for line in f:
 				srctxt.append(line)
 		bytesrctxt=" ".join(srctxt)
-		modelGen=trigramModelGenerator.trigramModelGenerator(srctxt)
-		freq1=modelGen.generateModel()
+		freq1=trigramModelGenerator.generateModel(srctxt)
 		keyword1=keywordext.extraction(inputsentence,freq1)
-		filedata1.fileW(previd)
+		filedata1.Write(previd)
 		sentenceGen=sentenceGenerator.sentenceGenerator(freq1)
 		sentence=sentenceGen.generateSentence(keyword1)
 		print sentence

@@ -3,8 +3,19 @@
 import twitterCommunication
 import glue
 import secret
+import Inrepid
+import getreply
+import JsonFile
+import callSentenceGen
+import postTwitter
+import codecs
+import sys
 
-twitterCom = twitterCommunication.twitterCommunication()
-g=glue.glue(twitterCom)
-g.main()
-
+sys.stdout=codecs.getwriter('utf-8')(sys.stdout)
+repid=Inrepid.Inrepid()
+reply=getreply.getreply(repid)
+sentence=callSentenceGen.callSentenceGen(reply)
+postTwitter.postTwitter(sentence,reply.user.screen_name)
+previd=reply.id
+filedata1=JsonFile.JsonFile("previd.json")
+filedata1.Write(previd)

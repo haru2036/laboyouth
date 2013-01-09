@@ -8,11 +8,11 @@ class sentenceGenerator:
 		self.freq1=freq1
 	def generateSentence(self,keyword):
 		sentence=[]
-		sentence.append(keyword)
 		if keyword not in self.freq1:
 			sentence.append(u"えっと……わからないや、ごめんね")
 			sentence.append("Error1")
 			return sentence
+		sentence.append(keyword)
 		keyslist = self.freq1[keyword].keys()
 		y=keyslist[random.randint(0,len(keyslist)-1)]
 		sentence.append(y)
