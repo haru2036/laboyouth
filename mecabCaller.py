@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 import MeCab 
+import ChaSenParser
 def parse(sentence):
 	itemlist = []
 	bytesentence=[]
@@ -25,3 +26,12 @@ def parsekeyword(sentence):
 	itemlist+=wakatistrip.split(" ")
 	#return [x.decode('utf-8') for x in itemlist]
 	return itemlist
+def parsekeywordChasen(sentence):
+	print sentence
+	bytesentence=sentence
+	bytesentence=bytesentence.encode('utf-8')
+	m=MeCab.Tagger("-Ochasen")
+	chasen=m.parse(bytesentence).decode('utf-8')
+	print chasen
+	words=ChaSenParser.ChaSenParser(chasen)
+	return ChaSenParser.hinshiStrip(words)

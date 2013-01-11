@@ -5,7 +5,9 @@ import mecabCaller
 import random
 def extraction(inputsentence,freq1):
 	#ここには入力文を保存するメソッドの呼び出しがあったもののここにはふさわしくないような気がしたので撤去
-	itemlist =mecabCaller.parsekeyword(inputsentence)
+	rawitemlist =mecabCaller.parsekeywordChasen(inputsentence)
+	itemlist=[x[2] for x in rawitemlist]
+	print itemlist
 	itemlist=[x for x in itemlist if x in freq1]
 	if len(itemlist)==0:
 		return None

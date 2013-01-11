@@ -14,8 +14,9 @@ import sys
 sys.stdout=codecs.getwriter('utf-8')(sys.stdout)
 repid=Inrepid.Inrepid()
 reply=getreply.getreply(repid)
-sentence=callSentenceGen.callSentenceGen(reply)
-postTwitter.postTwitter(sentence,reply.user.screen_name)
-previd=reply.id
-filedata1=JsonFile.JsonFile("previd.json")
-filedata1.Write(previd)
+if reply !=None:
+	sentence=callSentenceGen.callSentenceGen(reply)
+	postTwitter.postTwitter(sentence,reply.user.screen_name)
+	previd=reply.id
+	filedata1=JsonFile.JsonFile("previd.json")
+	filedata1.Write(previd)

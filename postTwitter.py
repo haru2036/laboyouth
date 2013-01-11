@@ -11,6 +11,7 @@ def postTwitter(sentence,reply_name):
 		print "sentence[0]がNoneです。"
 		return
 	s= " ".join(sentence)
+	s=s.strip(" ")
 	poststatus="@"+reply_name+" "+s
 	print poststatus
 	twitter.post(poststatus)
