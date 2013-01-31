@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
-import twitterCommunication
+import twitterCommunication_tweepy
 
 def postTwitter(sentence,reply_name):
-	twitter=twitterCommunication.twitterCommunication()
+	twitter=twitterCommunication_tweepy.twitterCommunication()
 	if not sentence:
 		print "sentenceが空です。"
 		return

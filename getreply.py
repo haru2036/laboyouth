@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
-import twitterCommunication 
+import twitterCommunication_tweepy 
 
 def getreply(inrepid):
-	twitter=twitterCommunication.twitterCommunication()
+	twitter=twitterCommunication_tweepy.twitterCommunication()
 	replies=twitter.get()
 	print replies[0]
 	in_reply_to_id=replies[0].id
