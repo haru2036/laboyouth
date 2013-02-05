@@ -19,5 +19,5 @@ print arg
 reply=arg
 if reply !=None:
 	sentence=callSentenceGen.callSentenceGen_com(reply)
-	s="".join(sentence)
+	s=" ".join(sentence)
 	print s
