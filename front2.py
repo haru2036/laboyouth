@@ -16,7 +16,7 @@ repid=Inrepid.Inrepid()
 reply=getreply.getreply(repid)
 if reply !=None:
 	sentence=callSentenceGen.callSentenceGen(reply)
-	postTwitter.postTwitter(sentence,reply.user.screen_name)
+	postTwitter.postTwitter(sentence,reply.user.screen_name,reply.id)
 	previd=reply.id
 	filedata1=JsonFile.JsonFile("previd.json")
 	filedata1.Write(previd)

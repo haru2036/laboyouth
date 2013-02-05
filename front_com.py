@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 import twitterCommunication
@@ -14,11 +13,11 @@ import sys
 
 sys.stdout=codecs.getwriter('utf-8')(sys.stdout)
 argvs=sys.argv
-argv=argvs[0]
-print argv
-reply=argv
+argv=argvs[1]
+arg=argv.decode('utf-8')
+print arg
+reply=arg
 if reply !=None:
-	sentence=callSentenceGen.callSentenceGen(reply)
-	print sentence
-	previd=reply.id
-	filedata1=JsonFile.JsonFile("previd.json")
+	sentence=callSentenceGen.callSentenceGen_com(reply)
+	s="".join(sentence)
+	print s

@@ -15,3 +15,14 @@ def callSentenceGen(reply):
 	sentenceGen=sentenceGenerator.sentenceGenerator(freq1)
 	sentence=sentenceGen.generateSentence(keyword1)
 	return sentence
+def callSentenceGen_com(reply):
+	with codecs.open("strarf_serif.txt","rb","utf-8") as f:
+		srctxt=[]
+		for line in f:
+			srctxt.append(line)
+	bytesrctxt=" ".join(srctxt)
+	freq1=trigramModelGenerator.generateModel(srctxt)
+	keyword1=keywordext.extraction(reply,freq1)
+	sentenceGen=sentenceGenerator.sentenceGenerator(freq1)
+	sentence=sentenceGen.generateSentence(keyword1)
+	return sentence

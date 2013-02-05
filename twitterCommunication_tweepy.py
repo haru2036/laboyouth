@@ -9,5 +9,5 @@ class twitterCommunication:
 		self.api=tweepy.API(self.auth)
 	def get(self):
 		return self.api.mentions()
-	def post(self,text):
-		self.api.update_status(text)
+	def post(self,text,inrepid):
+		self.api.update_status(text,inrepid)

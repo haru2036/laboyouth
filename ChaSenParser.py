@@ -11,6 +11,5 @@ def ChaSenParser(ChaSenInput):
 	return parsedlines
 def hinshiStrip(words):
 	words.pop()
-	#EOSのところが要素が１つだけになっているのでList index out of range エラーが起きる
-	words2=[x for x in words if u'助' not in x[3]]
+	words2=[x for x in words if  x[3].find( u'助') == -1 and x[3].find(u'記号') == -1 ]
 	return words2
