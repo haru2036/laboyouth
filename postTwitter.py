@@ -11,6 +11,7 @@ def postTwitter(sentence,reply_name,inrepid):
 		print "sentence[0]がNoneです。"
 		return
 	s= "".join(sentence)
-	poststatus="@"+reply_name+" "+s
-	print poststatus
+	poststatus_long="@"+reply_name+" "+s
+	poststatus=poststatus_long[:140]
+	print len(poststatus)
 	twitter.post(poststatus,inrepid)

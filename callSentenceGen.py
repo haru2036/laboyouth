@@ -9,6 +9,7 @@ def callSentenceGen(reply):
 		srctxt=[]
 		for line in f:
 			srctxt.append(line)
+			srctxt.append(u"EOS")
 	bytesrctxt=" ".join(srctxt)
 	freq1=trigramModelGenerator.generateModel(srctxt)
 	keyword1=keywordext.extraction(reply.text,freq1)
@@ -20,6 +21,7 @@ def callSentenceGen_com(reply):
 		srctxt=[]
 		for line in f:
 			srctxt.append(line)
+			srctxt.append(u"EOS")
 	bytesrctxt=" ".join(srctxt)
 	freq1=trigramModelGenerator.generateModel(srctxt)
 	keyword1=keywordext.extraction(reply,freq1)
