@@ -19,8 +19,7 @@ class sentenceGenerator:
 		j=0
 		#while (sentence[j]!=(u"。" or u"？"or u"?")) or (j<=10):
 		#while len(sentence)<10:
-		#改行が来たら終了したい、現状無限ループ
-		while (sentence[-1]!=u"EOS"):
+		while (sentence[-1]!=u"EOS") and j<=140:
 			if sentence[j] not in self.freq1:
 				sentence.append("……えっと……途中まで考えてたんだけど忘れちゃった。ごめんね")
 				sentence.append("Error2")
