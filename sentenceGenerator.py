@@ -29,6 +29,10 @@ class sentenceGenerator:
 				valueslist=self.freq1[sentence[-2]][sentence[-1]].values()
 				j=j+1
 				x=keyslist1[binarysearch.binarysearch(valueslist)]
+				if self.freq1[sentence[-2]][sentence[-1]][x]<0:
+					self.freq1[sentence[-2]][sentence[-1]][x]-=1
+				else:
+					del self.freq1[sentence[-2]][sentence[-1]][x]
 				sentence.append(x)
 		"""EOSを削る"""
 		sentence.pop()
