@@ -8,6 +8,6 @@ class twitterCommunication:
 		self.auth.set_access_token(secret.dict['access_token_key'],secret.dict['access_token_secret'])
 		self.api=tweepy.API(self.auth)
 	def get(self):
-		return self.api.mentions()
+		return self.api.mentions_timeline()
 	def post(self,text,inrepid):
 		self.api.update_status(text,inrepid)
