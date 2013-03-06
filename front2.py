@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 import twitterCommunication
-import glue
 import secret
 import Inrepid
 import getreply
