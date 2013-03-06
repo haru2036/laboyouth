@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 import twitterCommunication_tweepy 
-
+import secretloader
 def getreply(inrepid):
-	twitter=twitterCommunication_tweepy.twitterCommunication()
+	twitter=twitterCommunication_tweepy.twitterCommunication(secretloader.loadsecret("secret.json"))
 	replies=twitter.get()
 	print replies[0]
 	in_reply_to_id=replies[0].id

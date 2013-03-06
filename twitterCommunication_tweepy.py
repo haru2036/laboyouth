@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
-import secret
 import tweepy
 class twitterCommunication:
-	def __init__(self):
-		self.auth = tweepy.OAuthHandler(secret.dict['consumer_key'],secret.dict['consumer_secret'])
-		self.auth.set_access_token(secret.dict['access_token_key'],secret.dict['access_token_secret'])
+	def __init__(self,secret):
+		self.auth = tweepy.OAuthHandler(secret['consumer_key'],secret['consumer_secret'])
+		self.auth.set_access_token(secret['access_token_key'],secret['access_token_secret'])
 		self.api=tweepy.API(self.auth)
 	def get(self):
 		return self.api.mentions_timeline()
