@@ -18,8 +18,9 @@ def callSentenceGen(reply):
 	sentence=sentenceGen.generateSentence(keyword1)
 	return sentence
 def callSentenceGen_com(reply):
-	with codecs.open("strarf_serif.txt","rb","utf-8") as f:
+	#with codecs.open("strarf_serif.txt","rb","utf-8") as f:
 	#with codecs.open("Japanese.0304.text.non-mentions.txt","rb","utf-8") as f:
+	with codecs.open("xaa","rb","utf-8") as f:
 		srctxt=[]
 		for line in f:
 			srctxt.append(line)
@@ -27,6 +28,12 @@ def callSentenceGen_com(reply):
 	bytesrctxt=" ".join(srctxt)
 	freq1=trigramModelGenerator.generateModel(srctxt)
 	cpickler.topickle(freq1)
+	keyword1=keywordext.extraction(reply,freq1)
+	sentenceGen=sentenceGenerator.sentenceGenerator(freq1)
+	sentence=sentenceGen.generateSentence(keyword1)
+	return sentence
+def callSentenceGen_pickle(reply):
+	freq1=cpickler.frompickle("pickle.sampleapitweets.dump")
 	keyword1=keywordext.extraction(reply,freq1)
 	sentenceGen=sentenceGenerator.sentenceGenerator(freq1)
 	sentence=sentenceGen.generateSentence(keyword1)

@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*
 import cPickle
 def topickle(importdata):
-	with open("pickle.dump","wb") as f:
+	with open("pickle.sampleapitweets.dump","wb") as f:
 		cPickle.dump(importdata,f)
-
+def frompickle(filename):
+	with open(filename,"rb") as f:
+		return cPickle.load(f)
