@@ -37,7 +37,7 @@ def generateModel_SpaceSaving(sentence,k):
 			j=min(cj,key=lambda x:cj[x])
 			print j
 			cj[i]=j[1]+1
-			del(cj[j])
+			del(cj[j[0]])
 	cPickler.topickle(freq1,"SpaceSaving.dump")
 	"""ここに入れ子状の辞書にする処理を書く"""
 	pass
