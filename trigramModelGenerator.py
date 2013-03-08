@@ -34,6 +34,9 @@ def generateModel_SpaceSaving(sentence,k):
 			cj[i]=1
 		else:
 			j=min(cj.values())
-	print cj
+			T.append(i)
+			T.remove(j)
+			
+	cPickler.topickle(freq1,"SpaceSaving.dump")
 	"""ここに入れ子状の辞書にする処理を書く"""
 	pass
