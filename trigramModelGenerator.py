@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 import mecabCaller
+import cpickler
 def generateModel(sentence):
 	itemlist2=mecabCaller.parse(sentence)
 	freq1={}
@@ -19,6 +20,7 @@ def generateModel(sentence):
 		else:
 			freq2={z:1}
 			freq1[x]={y:freq2}
+	print freq1
 	return freq1
 def generateModel_SpaceSaving(sentence,k):
 	itemlist2=mecabCaller.parse(sentence)
@@ -35,9 +37,27 @@ def generateModel_SpaceSaving(sentence,k):
 		else:
 			"""とりあえず真似してみる"""
 			j=min(cj,key=lambda x:cj[x])
-			print j
-			cj[i]=j[1]+1
-			del(cj[j[0]])
-	cPickler.topickle(freq1,"SpaceSaving.dump")
-	"""ここに入れ子状の辞書にする処理を書く"""
-	pass
+			cj[i]=cj[j]+1
+			del(cj[j])
+	return cj.items()
+def cjtofreq(cj):
+	freq1={}
+	print type(cj),type(cj[0]),type(cj[0][1]),type(cj[0][0][2]),type(cj[0][0])
+	for i in cj:
+		x=i[0][0]
+		y=i[0][1]
+		z=i[0][2]
+		ci=i[1]
+		if x in freq1:
+			if y in freq1[x]:
+				if z in freq1[x][y]:
+					print "なにかがおかしいよ"
+				else:
+					freq1[x][y][z]=ci
+			else:
+				freq1[x][y]={z:ci}
+		else:
+			freq1[x]={y:{z:ci}}
+		#freq1[i[0][0]][i[0][1]][i[0][2]]=i[1]
+	cpickler.topickle(freq1,"SpaceSaving.dump")
+	return freq1
