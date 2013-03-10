@@ -22,8 +22,11 @@ def generateModel(sentence):
 			freq1[x]={y:freq2}
 	print freq1
 	return freq1
-def generateModel_SpaceSaving(sentence,k):
+def generateModel_SpaceSaving(result_queue,sentence,k):
+	print "job.start()"
+	
 	itemlist2=mecabCaller.parse(sentence)
+	print "generating..."
 	cj={}
 	for counter in xrange(len(itemlist2)-2):
 		x=itemlist2[counter]
@@ -35,11 +38,13 @@ def generateModel_SpaceSaving(sentence,k):
 		elif len(cj)<k:
 			cj[i]=1
 		else:
-			"""とりあえず真似してみる"""
+			#とりあえず真似してみる
 			j=min(cj,key=lambda x:cj[x])
 			cj[i]=cj[j]+1
 			del(cj[j])
-	return cj.items()
+	print "end of generate"
+	result_queue.put(cj)
+
 def cjtofreq(cj):
 	freq1={}
 	print type(cj),type(cj[0]),type(cj[0][1]),type(cj[0][0][2]),type(cj[0][0])
