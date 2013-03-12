@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 import trigramModelGenerator
+import mecabCaller
 import keywordext
 import codecs
 import sentenceGenerator
@@ -42,7 +43,7 @@ def callSentenceGen_pickle(reply):
 def callsentencegen_com_SpaceSaving(reply):
 	#with codecs.open("strarf_serif.txt","rb","utf-8") as f:
 	#with codecs.open(Japanese.0304.text.non-mentions.txt","rb","utf-8") as f:
-	with codecs.open("xaa","rb","utf-8") as f:
+	with codecs.open("strarf_serif.txt","rb","utf-8") as f:
 		srctxt=[]
 		for line in f:
 			srctxt.append(line)
@@ -56,28 +57,21 @@ def callsentencegen_com_SpaceSaving(reply):
 	splbyte=[bytesrctxt[:splen]]
 	for i in xrange(0,spcount-1):
 		splbyte.append(bytesrctxt[splen*i:splen*i+splen])
-	#splbyte=[bytesrctxt[i:i+size] for i in range(0,len(bytesrctxt),size)]
+	splbyte=[mecabCaller.parse(x) for x in splbyte]
 	print len(splbyte),len(splbyte[0]),len(splbyte[1]),len(splbyte[2]),len(splbyte[3])
-	
-	result_queue=Queue()
-	jobs=[Process(target=trigramModelGenerator.generateModel_SpaceSaving,args=(result_queue,bytetexts,k)) for bytetexts in splbyte]
-	for job in jobs:job.start()
-	for job in jobs:job.join()
-	print "end all process"
-	results=[result_queue.get() for ss in jobs]
-	cj=[]
-	results=[x.items() for x in results]
-	print "joining results..."
-	for result in results:
-		cj=[x for sublist in [cj,result] for x in sublist]
-	"""
+	args=[(spbyte,k) for spbyte in splbyte]
 	p=Pool()
-	argtuple=(bytesrctxt,40000)
-	print type(argtuple)
-	cj=p.map(trigramModelGenerator.generateModel_SpaceSaving,argtuple)
-	"""
+	results=p.map(trigramModelGenerator.generateModel_SpaceSaving,args)
+	print "end all process"
+	cj=[]
+	print "joining results..."
+	cj=results[0].copy()
+	results.pop(0)
+	for result in results:
+		cj.update(result)
 	print "running cjtofreq..."
-	freq1=trigramModelGenerator.cjtofreq(cj)
+	freq1=trigramModelGenerator.cjtofreq(cj.items())
+	print freq1
 	#cpickler.topickle(freq1,"SpaceSaving.dump")
 	keyword1=keywordext.extraction(reply,freq1)
 	sentenceGen=sentenceGenerator.sentenceGenerator(freq1)

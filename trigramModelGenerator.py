@@ -22,10 +22,9 @@ def generateModel(sentence):
 			freq1[x]={y:freq2}
 	print freq1
 	return freq1
-def generateModel_SpaceSaving(result_queue,sentence,k):
+def generateModel_SpaceSaving(args):
+	itemlist2,k=args
 	print "job.start()"
-	
-	itemlist2=mecabCaller.parse(sentence)
 	print "generating..."
 	cj={}
 	for counter in xrange(len(itemlist2)-2):
@@ -43,26 +42,24 @@ def generateModel_SpaceSaving(result_queue,sentence,k):
 			cj[i]=cj[j]+1
 			del(cj[j])
 	print "end of generate"
-	result_queue.put(cj)
-
+	return cj
 def cjtofreq(cj):
 	freq1={}
-	print type(cj),type(cj[0]),type(cj[0][1]),type(cj[0][0][2]),type(cj[0][0])
-	for i in cj:
-		x=i[0][0]
-		y=i[0][1]
-		z=i[0][2]
-		ci=i[1]
+	for j in cj:
+		x=j[0][0]
+		y=j[0][1]
+		z=j[0][2]
+		ci=j[1]
 		if x in freq1:
 			if y in freq1[x]:
 				if z in freq1[x][y]:
-					print "なにかがおかしいよ"
+					freq1[x][y][z]+=1
 				else:
 					freq1[x][y][z]=ci
 			else:
 				freq1[x][y]={z:ci}
 		else:
 			freq1[x]={y:{z:ci}}
-		#freq1[i[0][0]][i[0][1]][i[0][2]]=i[1]
+	#freq1[i[0][0]][i[0][1]][i[0][2]]=i[1]
 	cpickler.topickle(freq1,"SpaceSaving.dump")
 	return freq1
