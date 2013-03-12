@@ -3,6 +3,7 @@
 import mecabCaller
 import cpickler
 def generateModel(sentence):
+	print sentence
 	itemlist2=mecabCaller.parse(sentence)
 	freq1={}
 	for i in xrange(len(itemlist2)-2):
@@ -20,10 +21,11 @@ def generateModel(sentence):
 		else:
 			freq2={z:1}
 			freq1[x]={y:freq2}
-	print freq1
 	return freq1
 def generateModel_SpaceSaving(args):
-	itemlist2,k=args
+	sentence,k=args
+	print sentence
+	itemlist2=mecabCaller.parse(sentence)
 	print "job.start()"
 	print "generating..."
 	cj={}

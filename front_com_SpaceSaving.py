@@ -11,6 +11,6 @@ arg=argv.decode('utf-8')
 print arg
 reply=arg
 if reply !=None:
-	sentence=callSentenceGen.callsentencegen_com_SpaceSaving(reply)
+	sentence=callSentenceGen.callsentencegen_com_SpaceSaving_Single(reply)
 	s=" ".join(sentence)
 	print s

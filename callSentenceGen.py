@@ -71,7 +71,24 @@ def callsentencegen_com_SpaceSaving(reply):
 		cj.update(result)
 	print "running cjtofreq..."
 	freq1=trigramModelGenerator.cjtofreq(cj.items())
-	print freq1
+	#cpickler.topickle(freq1,"SpaceSaving.dump")
+	keyword1=keywordext.extraction(reply,freq1)
+	sentenceGen=sentenceGenerator.sentenceGenerator(freq1)
+	sentence=sentenceGen.generateSentence(keyword1)
+	return sentence
+def callsentencegen_com_SpaceSaving_Single(reply):
+	with codecs.open("strarf_serif.txt","rb","utf-8") as f:
+		srctxt=[]
+		for line in f:
+			srctxt.append(line)
+			srctxt.append(u"EOS")
+	bytesrctxt=srctxt
+	k=100000000000000
+	args=bytesrctxt,k
+	result=trigramModelGenerator.generateModel_SpaceSaving(args)
+	cj=[]
+	print "running cjtofreq..."
+	freq1=trigramModelGenerator.cjtofreq(result.items())
 	#cpickler.topickle(freq1,"SpaceSaving.dump")
 	keyword1=keywordext.extraction(reply,freq1)
 	sentenceGen=sentenceGenerator.sentenceGenerator(freq1)
