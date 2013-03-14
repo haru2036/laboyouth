@@ -41,15 +41,13 @@ def callSentenceGen_pickle(reply):
 	sentence=sentenceGen.generateSentence(keyword1)
 	return sentence
 def callsentencegen_com_SpaceSaving(reply):
-	#with codecs.open("strarf_serif.txt","rb","utf-8") as f:
-	#with codecs.open(Japanese.0304.text.non-mentions.txt","rb","utf-8") as f:
-	with codecs.open("strarf_serif.txt","rb","utf-8") as f:
-		srctxt=[]
+	with codecs.open("Japanese.0304.text.non-mentions.txt","rb","utf-8") as f:
+		bytesrctxt=[]
 		for line in f:
-			srctxt.append(line)
-			srctxt.append(u"EOS")
-	bytesrctxt=" ".join(srctxt)
-	k=10000
+			bytesrctxt.append(line)
+			bytesrctxt.append(u"EOS")
+	k=2517256
+	print k
 	length=len(bytesrctxt)
 	spcount=4
 	splen=length/spcount
@@ -77,18 +75,20 @@ def callsentencegen_com_SpaceSaving(reply):
 	sentence=sentenceGen.generateSentence(keyword1)
 	return sentence
 def callsentencegen_com_SpaceSaving_Single(reply):
-	with codecs.open("strarf_serif.txt","rb","utf-8") as f:
-		srctxt=[]
+	with codecs.open("Japanese.0304.text.non-mentions.txt","rb","utf-8") as f:
+		bytesrctxt=[]
 		for line in f:
-			srctxt.append(line)
-			srctxt.append(u"EOS")
-	bytesrctxt=srctxt
-	k=100000000000000
+			bytesrctxt.append(line)
+			bytesrctxt.append(u"EOS")
+	k=2517256
+	print k
 	args=bytesrctxt,k
 	result=trigramModelGenerator.generateModel_SpaceSaving(args)
 	cj=[]
+	resultitems=result.items()
+	print len(resultitems)
 	print "running cjtofreq..."
-	freq1=trigramModelGenerator.cjtofreq(result.items())
+	freq1=trigramModelGenerator.cjtofreq(resultitems)
 	#cpickler.topickle(freq1,"SpaceSaving.dump")
 	keyword1=keywordext.extraction(reply,freq1)
 	sentenceGen=sentenceGenerator.sentenceGenerator(freq1)
