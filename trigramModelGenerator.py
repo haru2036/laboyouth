@@ -38,11 +38,11 @@ def generateModel_SpaceSaving(args):
 		i=x,y,z
 		if i in cj:
 			cj[i]+=1
-			minimum.remove(i)
+			if i in minimum:
+				minimum.remove(i)
 			if len(minimum) is 0:
-				minimum.append(i)
 				minimumvalue+=1
-				#TODO:ここにcjのvalueがminimumvalueと等しい物だけを取り出してminimumに追加する処理を書く。
+				minimum=[item for item in cj if item is minimumvalue]
 		elif len(cj)<k:
 			cj[i]=1
 			minimum.append(i)
@@ -52,7 +52,8 @@ def generateModel_SpaceSaving(args):
 			cj[i]=cj[j]+1
 			del(cj[j])
 			if len(minimum) is 0:
-				#TODO:ここにその時点でのcjで最小値を持つ項目のkeyをすべてminimumにappendして、そのValue（すべて同じはず）をminimumvalueに代入する処理を書く。
+				minimum=[minimum.keys for item in cj if item is minimumvalue]
+				minimumvalue=cj[minimum[0]]
 		x=y
 		y=z
 	print "end of generate"

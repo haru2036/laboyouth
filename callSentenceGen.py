@@ -75,12 +75,12 @@ def callsentencegen_com_SpaceSaving(reply):
 	sentence=sentenceGen.generateSentence(keyword1)
 	return sentence
 def callsentencegen_com_SpaceSaving_Single(reply):
-	with codecs.open("Japanese.0304.text.non-mentions.txt","rb","utf-8") as f:
+	with codecs.open("strarf_serif.txt","rb","utf-8") as f:
 		bytesrctxt=[]
 		for line in f:
 			bytesrctxt.append(line)
 			bytesrctxt.append(u"EOS")
-	k=2517256
+	k=100000000000000000000000000000
 	print k
 	args=bytesrctxt,k
 	result=trigramModelGenerator.generateModel_SpaceSaving(args)
