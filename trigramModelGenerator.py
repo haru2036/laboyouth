@@ -31,29 +31,28 @@ def generateModel_SpaceSaving(args):
 	x=itemlist2[0]
 	y=itemlist2[1]
 	z=itemlist2[2]
-	minimum=[]
-	minimumvalue=0
+	buckets={}
+	minimum=0
 	for counter in xrange(len(itemlist2)-2):
 		z=itemlist2[counter+2]
 		i=x,y,z
 		if i in cj:
 			cj[i]+=1
-			if i in minimum:
-				minimum.remove(i)
+			if i in bucket[minimum]:
+				buckets[minimum].remove(i)
+				buckets[minimum+1]=i
 			if len(minimum) is 0:
-				minimumvalue+=1
-				minimum=[item for item in cj if item is minimumvalue]
+				minimum+=1
 		elif len(cj)<k:
 			cj[i]=1
-			minimum.append(i)
-			minimumvalue=1
+			buckets[1]=i
+			minimum=1
 		else:
-			j=minimum.pop()
+			j=buckets[minimum].pop()
 			cj[i]=cj[j]+1
 			del(cj[j])
 			if len(minimum) is 0:
-				minimum=[minimum.keys for item in cj if item is minimumvalue]
-				minimumvalue=cj[minimum[0]]
+				minimum=min(buckets.keys())
 		x=y
 		y=z
 	print "end of generate"
