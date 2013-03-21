@@ -3,7 +3,6 @@
 import mecabCaller
 import cpickler
 def generateModel(sentence):
-	print sentence
 	itemlist2=mecabCaller.parse(sentence)
 	freq1={}
 	for i in xrange(len(itemlist2)-2):
@@ -21,6 +20,7 @@ def generateModel(sentence):
 		else:
 			freq2={z:1}
 			freq1[x]={y:freq2}
+	cpickler.topickle(freq1,"plaincounting.dump")
 	return freq1
 def generateModel_SpaceSaving(args):
 	sentence,k=args
@@ -40,10 +40,13 @@ def generateModel_SpaceSaving(args):
 			cj[i]+=1
 			if i in buckets[minimum]:
 				buckets[minimum].remove(i)
-				buckets[minimum+1].append(i)
+				if buckets.get(minimum+1) is None:
+					buckets[minimum+1]=[i]
+				else:
+					buckets[minimum+1].append(i)
 			if len(buckets[minimum]) is 0:
+				del buckets[minimum]
 				minimum+=1
-				buckets[minimum].pop()
 		elif len(cj)<k:
 			cj[i]=1
 			if buckets.get(1) is None:
@@ -52,6 +55,9 @@ def generateModel_SpaceSaving(args):
 				buckets[1].append(i)
 			minimum=1
 		else:
+			if len(buckets[minimum]) is 0:
+				del buckets[minimum]
+				minimum=min(buckets.keys())
 			j=buckets[minimum].pop()
 			cj[i]=cj[j]+1
 			if buckets.get(cj[j]+1) is None:
@@ -59,9 +65,6 @@ def generateModel_SpaceSaving(args):
 			else:
 				buckets[cj[j]+1].append(i)
 			del(cj[j])
-			if len(buckets[minimum]) is 0:
-				del buckets[minimum]
-				minimum=min(buckets.keys())
 		x=y
 		y=z
 	print "end of generate"
