@@ -36,9 +36,7 @@ def generateModel_SpaceSaving(args):
 	for counter in xrange(len(itemlist2)-2):
 		z=itemlist2[counter+2]
 		i=x,y,z
-		print buckets
 		if i in cj:
-			print u'if'
 			cj[i]+=1
 			if i in buckets[minimum]:
 				buckets[minimum].remove(i)
@@ -47,7 +45,6 @@ def generateModel_SpaceSaving(args):
 				minimum+=1
 				buckets[minimum].pop()
 		elif len(cj)<k:
-			print u'elif'
 			cj[i]=1
 			if buckets.get(1) is None:
 				buckets[1]=[i]
@@ -55,7 +52,6 @@ def generateModel_SpaceSaving(args):
 				buckets[1].append(i)
 			minimum=1
 		else:
-			print u'else'
 			j=buckets[minimum].pop()
 			cj[i]=cj[j]+1
 			if buckets.get(cj[j]+1) is None:
