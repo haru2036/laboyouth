@@ -22,12 +22,10 @@ def generateModel(sentence):
 			freq1[x]={y:freq2}
 	cpickler.topickle(freq1,"plaincounting.dump")
 	return freq1
-def generateModel_SpaceSaving(args):
-	sentence,k=args
+def SSgen(sentence):
 	itemlist2=mecabCaller.parse(sentence)
 	print "job.start()"
 	print "generating..."
-	cj={}
 	x=itemlist2[0]
 	y=itemlist2[1]
 	z=itemlist2[2]
@@ -36,45 +34,9 @@ def generateModel_SpaceSaving(args):
 	for counter in xrange(len(itemlist2)-2):
 		z=itemlist2[counter+2]
 		i=x,y,z
-		if i in cj:
-			if i in buckets[minimum]:
-				buckets[minimum].remove(i)
-				if buckets.get(minimum+1) is None:
-					buckets[minimum+1]=[i]
-				else:
-					buckets[minimum+1].append(i)
-			else:
-				buckets[cj[i]].remove(i)
-				if buckets.get(cj[i]+1) is None:
-					buckets[cj[i]+1]=[i]
-				else:
-					buckets[cj[i]+1].append(i)
-			cj[i]+=1
-			if len(buckets[minimum]) is 0:
-				del buckets[minimum]
-				minimum+=1
-		elif len(cj)<k:
-			cj[i]=1
-			if buckets.get(1) is None:
-				buckets[1]=[i]
-			else:
-				buckets[1].append(i)
-			minimum=1
-		else:
-			if len(buckets[minimum]) is 0:
-				del buckets[minimum]
-				minimum=min(buckets.keys())
-			j=buckets[minimum].pop()
-			cj[i]=cj[j]+1
-			if buckets.get(cj[j]+1) is None:
-				buckets.setdefault(cj[j]+1,[i])
-			else:
-				buckets[cj[j]+1].append(i)
-			del(cj[j])
+		yield i
 		x=y
 		y=z
-	print "end of generate"
-	return cj
 def cjtofreq(cj):
 	freq1={}
 	for j in cj:
@@ -95,71 +57,86 @@ def cjtofreq(cj):
 	#freq1[i[0][0]][i[0][1]][i[0][2]]=i[1]
 	cpickler.topickle(freq1,"SpaceSaving.dump")
 	return freq1
-def generateModel_SpaceSaving4Test(args):
+def generateModel_SpaceSaving_Unigram(args):
 	itemlist2,k=args
-	print "job.start()"
-	print "generating..."
 	cj={}
-	x=itemlist2[0]
-	y=itemlist2[1]
-	z=itemlist2[2]
 	buckets={}
-	minimum=0
-	for counter in xrange(len(itemlist2)-2):
-		z=itemlist2[counter+2]
-		i=x,y,z
+	for i in itemlist2:
 		if i in cj:
-			yield "if"
 			if i in buckets[minimum]:
-				yield "ifif"
 				buckets[minimum].remove(i)
 				if buckets.get(minimum+1) is None:
-					yield "ifififif"
 					buckets[minimum+1]=[i]
 				else:
-					yield "ififelse"
 					buckets[minimum+1].append(i)
 			else:
-				yield "ifelse"
 				buckets[cj[i]].remove(i)
 				if buckets.get(cj[i]+1) is None:
-					yield "ifelseif"
 					buckets[cj[i]+1]=[i]
 				else:
-					yield "ifelseelse"
 					buckets[cj[i]+1].append(i)
 			cj[i]+=1
 			if len(buckets[minimum]) is 0:
-				yield "ifif2"
 				del buckets[minimum]
 				minimum+=1
-			else:
-				yield "ifelse2"
 		elif len(cj)<k:
-			yield "elif"
 			cj[i]=1
 			if buckets.get(1) is None:
-				yield "elifif"
 				buckets[1]=[i]
 			else:
-				yield "elifelse"
 				buckets[1].append(i)
 			minimum=1
 		else:
-			yield "else"
 			if len(buckets[minimum]) is 0:
-				yield "elseif"
 				del buckets[minimum]
 				minimum=min(buckets.keys())
 			j=buckets[minimum].pop()
 			cj[i]=cj[j]+1
 			if buckets.get(cj[j]+1) is None:
-				yield "elseif2"
 				buckets.setdefault(cj[j]+1,[i])
 			else:
-				yield "elseelse"
 				buckets[cj[j]+1].append(i)
 			del(cj[j])
-		x=y
-		y=z
-	print "end of generate"
+	return cj
+def generateModel_SpaceSaving(args):
+	itemlist2,k=args
+	gen=SSgen(itemlist2)
+	cj={}
+	buckets={}
+	for i in gen:
+		if i in cj:
+			if i in buckets[minimum]:
+				buckets[minimum].remove(i)
+				if buckets.get(minimum+1) is None:
+					buckets[minimum+1]=[i]
+				else:
+					buckets[minimum+1].append(i)
+			else:
+				buckets[cj[i]].remove(i)
+				if buckets.get(cj[i]+1) is None:
+					buckets[cj[i]+1]=[i]
+				else:
+					buckets[cj[i]+1].append(i)
+			cj[i]+=1
+			if len(buckets[minimum]) is 0:
+				del buckets[minimum]
+				minimum+=1
+		elif len(cj)<k:
+			cj[i]=1
+			if buckets.get(1) is None:
+				buckets[1]=[i]
+			else:
+				buckets[1].append(i)
+			minimum=1
+		else:
+			if len(buckets[minimum]) is 0:
+				del buckets[minimum]
+				minimum=min(buckets.keys())
+			j=buckets[minimum].pop()
+			cj[i]=cj[j]+1
+			if buckets.get(cj[j]+1) is None:
+				buckets.setdefault(cj[j]+1,[i])
+			else:
+				buckets[cj[j]+1].append(i)
+			del(cj[j])
+	return cj

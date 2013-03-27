@@ -7,6 +7,7 @@ import codecs
 class test_trigramModelGenerator(unittest.TestCase):
 	def setUp(self):
 		self.sentence=[]
+		self.itemlist=["A","B","C","C","D","A","B","B","A","D","C","B","C","A","D","A","C","D","B","D","A","A","D"]
 		with codecs.open("strarf_serif.txt",'rb','utf-8') as f:
 			for line in f:
 				self.sentence.append(line)
@@ -24,10 +25,9 @@ class test_trigramModelGenerator(unittest.TestCase):
 		time_SS=time_SSEnded - time_defaultEnded
 		print 'Default,SS'
 		print time_default,time_SS
+		print result_cj2freq
 	def test_generateModel_SpaceSavingUsingGenerator(self):
-		itemlist=["A","B","C","C","D","A","B","C","D","A","B","B","A","D","C","B","C","A","D","A","C","D","B","D","A","A","D"]
-		args=itemlist,3
-		SS=trigramModelGenerator.generateModel_SpaceSaving4Test(args)
-		for section in SS:
-			print section
+		args=self.itemlist,3
+		SS=trigramModelGenerator.generateModel_SpaceSaving_Unigram(args)
+		self.assertEqual(SS,{"A":8,"B":7,"D":8})
 unittest.main()
