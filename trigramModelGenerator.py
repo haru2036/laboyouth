@@ -22,8 +22,7 @@ def generateModel(sentence):
 			freq1[x]={y:freq2}
 	cpickler.topickle(freq1,"plaincounting.dump")
 	return freq1
-def SSgen(sentence):
-	itemlist2=mecabCaller.parse(sentence)
+def SSgen(itemlist2):
 	print "job.start()"
 	print "generating..."
 	x=itemlist2[0]
@@ -99,7 +98,8 @@ def generateModel_SpaceSaving_Unigram(args):
 			del(cj[j])
 	return cj
 def generateModel_SpaceSaving(args):
-	itemlist2,k=args
+	sentence,k=args
+	itemlist2=mecabCaller.parse(sentence)
 	gen=SSgen(itemlist2)
 	cj={}
 	buckets={}
