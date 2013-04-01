@@ -1,6 +1,0 @@
-dict = {
-'consumer_key':'hogehoge',
-'consumer_secret':'piyopiyo',
-'access_token_key':'hogepiyo',
-'access_token_secret':'piyohoge'
-}
