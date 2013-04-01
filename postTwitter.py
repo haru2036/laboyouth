@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 import twitterCommunication_tweepy
-import secretloader
+import settingloader
 
 def postTwitter(sentence,reply_name,inrepid):
-	twitter=twitterCommunication_tweepy.twitterCommunication(secretloader.loadsecret("secret.json"))
+	twitter=twitterCommunication_tweepy.twitterCommunication(settingloader.loadsettings("secret.json"))
 	if not sentence:
 		print "sentenceが空です。"
 		return

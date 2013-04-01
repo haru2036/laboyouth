@@ -9,7 +9,7 @@ class sentenceGenerator:
 	def generateSentence(self,keyword):
 		sentence=[]
 		if keyword not in self.freq1:
-			sentence.append(u"えっと……わからないや、ごめんね")
+			sentence.append(u"辞書に単語が見当たらないです")
 			sentence.append("Error1")
 			return sentence
 		sentence.append(keyword)
@@ -21,7 +21,7 @@ class sentenceGenerator:
 		#while len(sentence)<10:
 		while (sentence[-1]!=u"EOS") and j<=140:
 			if sentence[j] not in self.freq1:
-				sentence.append("……えっと……途中まで考えてたんだけど忘れちゃった。ごめんね")
+				sentence.append(u"辞書に単語が見当たらないです")
 				sentence.append("Error2")
 				return sentence
 			else:

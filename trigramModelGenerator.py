@@ -35,8 +35,6 @@ class modelgenerator():
 					self.minimum+=1
 				elif len(self.buckets[self.cj[i]-1]) is 0:
 					del self.buckets[self.cj[i]-1] 
-				print "ended if"
-				print self.buckets
 			elif len(self.cj)<k:
 				self.cj[i]=1
 				if self.buckets.get(1) is None:
@@ -44,8 +42,6 @@ class modelgenerator():
 				else:
 					self.buckets[1].append(i)
 				self.minimum=1
-				print "ended elif"
-				print self.buckets
 			else:
 				if len(self.buckets[self.minimum]) is 0:
 					del self.buckets[self.minimum]
@@ -57,8 +53,6 @@ class modelgenerator():
 				else:
 					self.buckets[self.cj[j]+1].append(i)
 				del(self.cj[j])
-				print "ended else"
-				print self.buckets
 		return self.cj
 	def GeneratorForUnigram(self,itemlist2):
 		for i in itemlist2:
@@ -73,7 +67,7 @@ class modelgenerator():
 			yield i
 			x=y
 			y=z
-	def cjtofreq(self,cj):
+	def cjtofreq(self,cj,modelpath):
 		freq1={}
 		for j in cj:
 			x=j[0][0]
@@ -91,5 +85,5 @@ class modelgenerator():
 			else:
 				freq1[x]={y:{z:ci}}
 		#freq1[i[0][0]][i[0][1]][i[0][2]]=i[1]
-		cpickler.topickle(freq1,"SpaceSaving.dump")
+		cpickler.topickle(freq1,modelpath)
 		return freq1
