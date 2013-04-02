@@ -8,5 +8,7 @@ class twitterCommunication:
 		self.api=tweepy.API(self.auth)
 	def get(self):
 		return self.api.mentions_timeline()
+	def get_mainTL(self):
+                return self.api.mentions_timeline()
 	def post(self,text,inrepid):
 		self.api.update_status(text,inrepid)

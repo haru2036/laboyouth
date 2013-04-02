@@ -1,7 +1,7 @@
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
-import twitterCommunication
+import twitterCommunication_tweepy
 import Inrepid
 import getreply
 import JsonFile
@@ -23,3 +23,11 @@ if reply !=None:
 	previd=reply.id
 	filedata1=JsonFile.JsonFile("previd.json")
 	filedata1.Write(previd)
+elif settings["FromTLTweet"]:
+        modelname=settings["modelname"]
+	sentence=callSentenceGen.callSentenceGen_pickle(reply,modelname)
+	print sentence
+	twitter=twitterCommunication_tweepy.twitterCommunication(settingloader.loadsettings("secret.json"))
+	postTwitter.postTwitterNormal(sentence,reply.user.screen_name,reply.id)
+else:
+        sys.exit()
