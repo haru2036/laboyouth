@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 
-import mecabCaller
+import scripts.mecabCaller
 import random
 def extraction(inputsentence,freq1):
 	#ここには入力文を保存するメソッドの呼び出しがあったもののここにはふさわしくないような気がしたので撤去

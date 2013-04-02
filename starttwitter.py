@@ -1,33 +1,33 @@
 
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
-import twitterCommunication_tweepy
-import Inrepid
-import getreply
-import JsonFile
-import callSentenceGen
-import postTwitter
+import scripts.twitterCommunication_tweepy
+import scripts.Inrepid
+import scripts.getreply
+import scripts.JsonFile
+import scripts.callSentenceGen
+import scripts.postTwitter
 import codecs
 import sys
-import settingloader
+import scripts.settingloader
 
 sys.stdout=codecs.getwriter('utf-8')(sys.stdout)
-settings=settingloader.loadsettings("settings.json")
-repid=Inrepid.Inrepid()
-reply=getreply.getreply(repid)
+settings=scripts.settingloader.loadsettings("settings.json")
+repid=scripts.Inrepid.Inrepid()
+reply=scripts.getreply.getreply(repid)
 if reply !=None:
 	modelname=settings["modelname"]
-	sentence=callSentenceGen.callSentenceGen_pickle(reply,modelname)
+	sentence=scripts.callSentenceGen.callSentenceGen_pickle(reply,modelname)
 	print sentence
-	postTwitter.postTwitter(sentence,reply.user.screen_name,reply.id)
+	scripts.postTwitter.postTwitter(sentence,reply.user.screen_name,reply.id)
 	previd=reply.id
-	filedata1=JsonFile.JsonFile("previd.json")
+	filedata1=scripts.JsonFile.JsonFile("previd.json")
 	filedata1.Write(previd)
 elif settings["FromTLTweet"]:
         modelname=settings["modelname"]
-	sentence=callSentenceGen.callSentenceGen_pickle(reply,modelname)
+	sentence=scripts.scripts.callSentenceGen.callSentenceGen_pickle(reply,modelname)
 	print sentence
-	twitter=twitterCommunication_tweepy.twitterCommunication(settingloader.loadsettings("secret.json"))
-	postTwitter.postTwitterNormal(sentence,reply.user.screen_name,reply.id)
+	twitter=scripts.twitterCommunication_tweepy.twitterCommunication(settingloader.loadsettings("secret.json"))
+	scripts.postTwitter.postTwitterNormal(sentence,reply.user.screen_name,reply.id)
 else:
         sys.exit()

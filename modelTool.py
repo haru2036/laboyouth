@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*
 import sys
 import os
-import trigramModelGenerator
-import mecabCaller
+import scripts.trigramModelGenerator
+import scripts.mecabCaller
 import codecs
-import settingloader
+import scripts.settingloader
 argvs=sys.argv
 print argvs[-1]
 if argvs[-1] is argvs[0] :
@@ -18,10 +18,10 @@ with codecs.open(argv,"rb","utf-8") as f:
 	for line in f:
 		srctxt.append(line)
 		srctxt.append(u"EOS")
-parsedtxt=mecabCaller.parse(srctxt)
-settings=settingloader.loadsettings("settings.json")
+parsedtxt=scripts.mecabCaller.parse(srctxt)
+settings=scripts.settingloader.loadsettings("settings.json")
 modelname=settings["modelname"]
-modelgen=trigramModelGenerator.modelgenerator()
+modelgen=scripts.trigramModelGenerator.modelgenerator()
 gen=modelgen.GeneratorForTrigram(parsedtxt)
 SS=modelgen.SpaceSaving(gen,settings["k"])
 result_cj2freq=modelgen.cjtofreq(SS.items(),modelname)
