@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 # -*- coding: utf-8 -*
 import scripts.twitterCommunication_tweepy
@@ -25,7 +24,7 @@ if reply !=None:
 	filedata1.Write(previd)
 elif settings["FromTLTweet"]:
         modelname=settings["modelname"]
-	sentence=scripts.scripts.callSentenceGen.callSentenceGen_pickle(reply,modelname)
+	sentence=scripts.callSentenceGen.callSentenceGen_pickle(reply,modelname)
 	print sentence
 	twitter=scripts.twitterCommunication_tweepy.twitterCommunication(settingloader.loadsettings("secret.json"))
 	scripts.postTwitter.postTwitterNormal(sentence,reply.user.screen_name,reply.id)
