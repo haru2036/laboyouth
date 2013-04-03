@@ -17,4 +17,4 @@ class twitterCommunication:
 	def getlists(self):
                 return self.api.lists_all()
         def getlist(self,owner,slug,sinceid):
-                return self.api.get_list(since_id=sinceid,owner_screen_name=owner,slug=slug)
+                return self.api.list_timeline(owner_screen_name=owner,slug=slug,since_id=sinceid)

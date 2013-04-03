@@ -26,15 +26,23 @@ if reply !=None:
 	filedata1=scripts.JsonFile.JsonFile("previd.json")
 	filedata1.Write(previd)
 elif settings["FromTLTweet"]:
-        modelname=settings["modelname"]
-        twitter=scripts.twitterCommunication_tweepy.twitterCommunication(scripts.settingloader.loadsettings("secret.json"))
-	TL=twitter.get_mainTL()
-	tweet=TL[0]
-	sentencelist=[]
-	for i in range(0,2):
-                sentencelist.append(scripts.callSentenceGen.callSentenceGen_pickle(tweet,modelname))
-	sentencelist.sort(key=len)
-	print sentencelist
-	scripts.postTwitter.postTwitterNormal(sentencelist[1])
+        if settings["executingNum"] is 0:
+                modelname=settings["modelname"]
+                twitter=scripts.twitterCommunication_tweepy.twitterCommunication(scripts.settingloader.loadsettings("secret.json"))
+                TL=twitter.get_mainTL()
+                tweet=TL[0]
+                sentencelist=[]
+                for i in range(0,2):
+                        sentencelist.append(scripts.callSentenceGen.callSentenceGen_pickle(tweet,modelname))
+                sentencelist.sort(key=len)
+                print sentencelist
+                scripts.postTwitter.postTwitterNormal(sentencelist[1])
 else:
         sys.exit()
+num=settings["executingNum"]
+lim=settings["ExecutePerTweet"]
+num+=1
+if num is lim:
+        num=0
+settings["executingNum"]=num
+scripts.settingloader.writesettings("settings.json",settings)

@@ -1,1 +1,1 @@
-{"k": 100000000000000000, "modelname": "model.dump", "FromTLTweet": true, "patchModelGenerate": true}
+{"modelname": "model.dump", "k": 100000000000000000, "patchModelGenerate": true, "executingNum": 0, "ExecutePerTweet": 3, "FromTLTweet": true}
