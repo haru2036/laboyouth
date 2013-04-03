@@ -16,17 +16,25 @@ repid=scripts.Inrepid.Inrepid()
 reply=scripts.getreply.getreply(repid)
 if reply !=None:
 	modelname=settings["modelname"]
-	sentence=scripts.callSentenceGen.callSentenceGen_pickle(reply,modelname)
-	print sentence
-	scripts.postTwitter.postTwitter(sentence,reply.user.screen_name,reply.id)
+	sentencelist=[]
+	for i in range(0,2):
+		sentencelist.append(scripts.callSentenceGen.callSentenceGen_pickle(reply,modelname))
+	print sentencelist
+	sentencelist.sort(key=len)
+	scripts.postTwitter.postTwitter(sentencelist[1],reply.user.screen_name,reply.id)
 	previd=reply.id
 	filedata1=scripts.JsonFile.JsonFile("previd.json")
 	filedata1.Write(previd)
 elif settings["FromTLTweet"]:
         modelname=settings["modelname"]
-	sentence=scripts.callSentenceGen.callSentenceGen_pickle(reply,modelname)
-	print sentence
-	twitter=scripts.twitterCommunication_tweepy.twitterCommunication(settingloader.loadsettings("secret.json"))
-	scripts.postTwitter.postTwitterNormal(sentence,reply.user.screen_name,reply.id)
+        twitter=scripts.twitterCommunication_tweepy.twitterCommunication(scripts.settingloader.loadsettings("secret.json"))
+	TL=twitter.get_mainTL()
+	tweet=TL[0]
+	sentencelist=[]
+	for i in range(0,2):
+                sentencelist.append(scripts.callSentenceGen.callSentenceGen_pickle(tweet,modelname))
+	sentencelist.sort(key=len)
+	print sentencelist
+	scripts.postTwitter.postTwitterNormal(sentencelist[1])
 else:
         sys.exit()

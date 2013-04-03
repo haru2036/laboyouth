@@ -12,3 +12,5 @@ class twitterCommunication:
                 return self.api.mentions_timeline()
 	def post(self,text,inrepid):
 		self.api.update_status(text,inrepid)
+	def postnormal(self,text):
+		self.api.update_status(text)

@@ -24,7 +24,7 @@ def postTwitterNormal(sentence):
 	if sentence==None:
 		print "sentence[0]がNoneです。"
 		return
-	s= "".join(sentence)
+	poststatus_long= "".join(sentence)
 	poststatus=poststatus_long[:140]
 	print len(poststatus)
-	twitter.post(poststatus)
+	twitter.postnormal(poststatus)
