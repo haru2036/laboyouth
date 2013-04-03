@@ -5,3 +5,6 @@ def loadsettings(filename):
     jsonfile=JsonFile.JsonFile(filename)
     json=jsonfile.Read()
     return json
+def writesettings(filename,data):
+    jsonfile=JsonFile.JsonFile(filename)
+    json=jsonfile.Write(data)

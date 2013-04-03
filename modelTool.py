@@ -6,6 +6,7 @@ import scripts.trigramModelGenerator
 import scripts.mecabCaller
 import codecs
 import scripts.settingloader
+import scripts.cpickler
 argvs=sys.argv
 print argvs[-1]
 if argvs[-1] is argvs[0] :
@@ -21,7 +22,16 @@ with codecs.open(argv,"rb","utf-8") as f:
 parsedtxt=scripts.mecabCaller.parse(srctxt)
 settings=scripts.settingloader.loadsettings("settings.json")
 modelname=settings["modelname"]
-modelgen=scripts.trigramModelGenerator.modelgenerator()
-gen=modelgen.GeneratorForTrigram(parsedtxt)
-SS=modelgen.SpaceSaving(gen,settings["k"])
-result_cj2freq=modelgen.cjtofreq(SS.items(),modelname)
+if settings["patchModelGenerate"]:
+        modelgen=scripts.trigramModelGenerator.modelgenerator(cpickler.frompickle("cj.dump"))
+        gen=modelgen.GeneratorForTrigram(parsedtxt)
+        SS=modelgen.SpaceSaving(gen,settings["k"])
+        result_cj2freq=modelgen.cjtofreq(SS.items(),modelname)
+else:
+        modelgen=scripts.trigramModelGenerator.modelgenerator()
+        gen=modelgen.GeneratorForTrigram(parsedtxt)
+        SS=modelgen.SpaceSaving(gen,settings["k"])
+        result_cj2freq=modelgen.cjtofreq(SS.items(),modelname)
+        settings["patchModelGenerate"]=True
+        scripts.settingloader.writesettings("settings.json",settings)        
+        
