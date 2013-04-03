@@ -17,6 +17,7 @@ twitter=scripts.twitterCommunication_tweepy.twitterCommunication(scripts.setting
 twitterlist=twitter.getlist("SRCLikebot","Crawlinglist",statuses["newestid"])
 for item in twitterlist:
     statuses["statuses"].append(item.text)
+    print item
 newestid=twitterlist[0].id
 statuses["newestid"]=newestid
 scripts.cpickler.topickle(statuses,"crawlingtmp.dump")
