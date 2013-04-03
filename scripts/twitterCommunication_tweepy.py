@@ -9,8 +9,12 @@ class twitterCommunication:
 	def get(self):
 		return self.api.mentions_timeline()
 	def get_mainTL(self):
-                return self.api.mentions_timeline()
+                return self.api.home_timeline()
 	def post(self,text,inrepid):
 		self.api.update_status(text,inrepid)
 	def postnormal(self,text):
 		self.api.update_status(text)
+	def getlists(self):
+                return self.api.lists_all()
+        def getlist(self,owner,slug,sinceid):
+                return self.api.get_list(since_id=sinceid,owner_screen_name=owner,slug=slug)
