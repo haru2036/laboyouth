@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*
 import cpickler
 class modelgenerator():
-	def __init__(self,cj={}):
+	def __init__(self,cj={},buckets={},minimum=0):
 		self.itemlist2=[]
 		self.cj=cj
-		self.buckets={}
-		self.minimum=0
+		self.buckets=buckets
+		self.minimum=minimum
 	def nativecounting(self,gen):
 		for i in gen:
 			if i in self.cj:
@@ -54,6 +54,8 @@ class modelgenerator():
 					self.buckets[self.cj[j]+1].append(i)
 				del(self.cj[j])
 		cpickler.topickle(self.cj,"cj.dump")
+		cpickler.topickle(self.buckets,"buckets.dump")
+		cpickler.topickle(self.minimum,"minimum.dump")
 		return self.cj
 	def GeneratorForUnigram(self,itemlist2):
 		for i in itemlist2:

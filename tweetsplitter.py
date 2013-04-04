@@ -10,4 +10,5 @@ with codecs.open("fromofficialdownloadtext.txt","rb","utf-8") as f:
 		srctxt.append(" ".join(lineinside))
 	print srctxt
 with codecs.open("fromofficialdownloadtext.txt","wb","utf-8") as f:
-	f.writelines(srctxt)
+        for i in srctxt:
+                f.write(i)

@@ -7,6 +7,7 @@ import scripts.mecabCaller
 import codecs
 import scripts.settingloader
 import scripts.cpickler
+import scripts.recovercj
 argvs=sys.argv
 print argvs[-1]
 if argvs[-1] is argvs[0] :
@@ -23,7 +24,9 @@ parsedtxt=scripts.mecabCaller.parse(srctxt)
 settings=scripts.settingloader.loadsettings("settings.json")
 modelname=settings["modelname"]
 if settings["patchModelGenerate"]:
-        modelgen=scripts.trigramModelGenerator.modelgenerator(cpickler.frompickle("cj.dump"))
+        cj=scripts.cpickler.frompickle("cj.dump")
+        buckets,minimum=scripts.recovercj.bucketsfromcj(cj)
+        modelgen=scripts.trigramModelGenerator.modelgenerator(cj,buckets,minimum)
         gen=modelgen.GeneratorForTrigram(parsedtxt)
         SS=modelgen.SpaceSaving(gen,settings["k"])
         result_cj2freq=modelgen.cjtofreq(SS.items(),modelname)
