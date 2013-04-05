@@ -25,7 +25,9 @@ settings=scripts.settingloader.loadsettings("settings.json")
 modelname=settings["modelname"]
 if settings["patchModelGenerate"]:
         cj=scripts.cpickler.frompickle("cj.dump")
-        buckets,minimum=scripts.recovercj.bucketsfromcj(cj)
+        buckets=scripts.cpickler.frompickle("buckets.dump")
+        minimum=scripts.cpickler.frompickle("minimum.dump")
+        print "前回までの状態を読み込みました"
         modelgen=scripts.trigramModelGenerator.modelgenerator(cj,buckets,minimum)
         gen=modelgen.GeneratorForTrigram(parsedtxt)
         SS=modelgen.SpaceSaving(gen,settings["k"])
